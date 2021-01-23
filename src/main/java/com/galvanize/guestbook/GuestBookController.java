@@ -22,7 +22,7 @@ public class GuestBookController {
         Post post1 = new Post();
         post1.setComment("happy birthday");
         post1.setName("Balaji");
-        postList.add(post);
+        postList.add(post1);
     }
 
     @PostMapping("/api/guestbook/comment")
