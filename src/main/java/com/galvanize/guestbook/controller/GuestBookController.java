@@ -1,6 +1,6 @@
-package com.galvanize.guestbook;
+package com.galvanize.guestbook.controller;
 
-import com.galvanize.guestbook.bean.Post;
+import com.galvanize.guestbook.model.Post;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.galvanize.guestbook.bean;
+package com.galvanize.guestbook.model;
 
 import lombok.Data;
 
