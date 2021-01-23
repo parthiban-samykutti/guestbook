@@ -1,7 +1,7 @@
 package com.galvanize.guestbook.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.galvanize.guestbook.model.Post;
+import com.galvanize.guestbook.model.VisitorEntry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,30 +21,33 @@ public class GuestBookControllerTest {
 
     /**
      * Any visitor can post their name and a comment to the Guestbook.
-     * All visitors can see a list of every entry in the Guestbook.
      */
-
-
     @Test
-    public void testPost_Comment_To_GuestBook() throws Exception {
+    public void testAddNewEntry() throws Exception {
 
-        Post post = new Post();
-        post.setComment("happy birthday");
-        post.setName("parthiban");
+        VisitorEntry visitorEntry = VisitorEntry.builder()
+                .comment("happy birthday")
+                .name("parthiban")
+                .build();
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/guestbook/comment")
-                .content(new ObjectMapper().writeValueAsString(post))
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/guestbook/entry")
+                .content(new ObjectMapper().writeValueAsString(visitorEntry))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 
+    /**
+     * All visitors can see a list of every entry in the Guestbook.
+     *
+     * @throws Exception
+     */
     @Test
-    public void test_Get_All_Posts() throws Exception {
-        testPost_Comment_To_GuestBook();
-        mockMvc.perform(get("/api/getallposts"))
+    public void testFindAllEntries() throws Exception {
+        mockMvc.perform(get("/api/guestbook/entry"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name").value("parthiban"))
+                .andExpect(jsonPath("length()").value(2))
+                .andExpect(jsonPath("$[0].name").value("Parthiban"))
                 .andExpect(jsonPath("$[0].comment").value("happy birthday"));
     }
 }
