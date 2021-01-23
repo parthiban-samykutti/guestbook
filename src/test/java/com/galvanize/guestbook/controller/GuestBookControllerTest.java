@@ -46,7 +46,6 @@ public class GuestBookControllerTest {
     public void testFindAllEntries() throws Exception {
         mockMvc.perform(get("/api/guestbook/entry"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("length()").value(2))
                 .andExpect(jsonPath("$[0].name").value("Parthiban"))
                 .andExpect(jsonPath("$[0].comment").value("happy birthday"));
     }
