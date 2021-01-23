@@ -4,6 +4,7 @@ import com.galvanize.guestbook.bean.Post;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class GuestBookController {
 
     private List<Post> postList = new ArrayList<>();
 
-    @PostMapping
+    @PostConstruct
     public void init(){
         Post post = new Post();
         post.setComment("happy birthday");
